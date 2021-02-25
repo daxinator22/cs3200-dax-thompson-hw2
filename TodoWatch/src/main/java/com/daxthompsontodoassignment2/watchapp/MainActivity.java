@@ -1,45 +1,45 @@
 package com.daxthompsontodoassignment2.watchapp;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.daxthompsontodoassignment2.api.Verify;
+import com.daxthompsontodoassignment2.api.CountViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int counter = 0;
+    private CountViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.viewModel = new ViewModelProvider(this).get(CountViewModel.class);
+
         AppCompatTextView counter = findViewById(R.id.counter);
         updateCounter(counter);
 
+        viewModel.getData().observe(this, (count) -> {
+            updateCounter(counter);
+        });
 
         AppCompatButton plus = findViewById(R.id.plus);
         plus.setOnClickListener((view -> {
-            this.counter++;
-            updateCounter(counter);
+            viewModel.incrementCount();
         }));
 
         AppCompatButton minus = findViewById(R.id.minus);
         minus.setOnClickListener((view -> {
-            this.counter--;
-            updateCounter(counter);
+            viewModel.decrementCount();
         }));
 
     }
 
     private void updateCounter(AppCompatTextView counter){
-        counter.setText(String.format("%d", this.counter));
+        counter.setText(String.format("%d", this.viewModel.getCounter()));
     }
 }

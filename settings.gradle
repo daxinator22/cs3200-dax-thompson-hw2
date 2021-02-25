@@ -1,0 +1,4 @@
+include ':TodoWatch'
+include ':API'
+include ':TodoPhone'
+rootProject.name = "cs3200-dax-thompson-hw2"

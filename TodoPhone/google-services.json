@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1046346310886",
+    "project_id": "cs3200-dax-thompson-hw2",
+    "storage_bucket": "cs3200-dax-thompson-hw2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046346310886:android:a0915756187e601991c727",
+        "android_client_info": {
+          "package_name": "com.daxthompsontodoassignment2.phoneapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046346310886-petordm5gbptonmtp028j7j01ih0t46m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADRjDt-zij97bPOao0lc2tHfXLYuTQ__I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046346310886-petordm5gbptonmtp028j7j01ih0t46m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

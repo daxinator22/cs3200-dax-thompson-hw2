@@ -20,11 +20,12 @@ public class CountViewModel extends ViewModel {
     public CountViewModel(){
         this.counter = new MutableLiveData<>();
         this.counter.setValue((long)0);
-        this.db = FirebaseDatabase.getInstance().getReference().child("count");
+        this.db = FirebaseDatabase.getInstance().getReference();
         this.db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                setCounter((long)snapshot.getValue());
+                setCounter((long)snapshot.child("count").getValue());
+                Log.d("VIEWMODEL", snapshot.child("textTest").getValue().toString());
             }
 
             @Override
@@ -39,10 +40,10 @@ public class CountViewModel extends ViewModel {
     public MutableLiveData<Long> getData(){return this.counter;}
 
     public void incrementCount(){
-        this.db.setValue(getCounter() + 1);
+        this.db.child("count").setValue(getCounter() + 1);
     }
 
     public void decrementCount(){
-        this.db.setValue(getCounter() - 1);
+        this.db.child("count").setValue(getCounter() - 1);
     }
 }

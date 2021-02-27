@@ -14,34 +14,18 @@
         android:layout_height="match_parent"
         android:padding="@dimen/inner_frame_layout_padding"
         android:orientation="vertical"
-        android:gravity="center">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/counter"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="50dp"
-            android:gravity="center"/>
-
+        android:gravity="center_horizontal">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/minus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"/>
-        </LinearLayout>
+            android:gravity="center"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Task"/>
 
     </LinearLayout>
 </androidx.wear.widget.BoxInsetLayout>

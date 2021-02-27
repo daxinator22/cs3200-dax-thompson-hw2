@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         AppCompatTextView counter = findViewById(R.id.counter);
         updateCounter(counter);
 
-        viewModel.getData().observe(this, (count) -> {
-            updateCounter(counter);
-        });
+//        viewModel.getData().observe(this, (count) -> {
+//            updateCounter(counter);
+//        });
 
         AppCompatButton plus = findViewById(R.id.plus);
         plus.setOnClickListener((view -> {
@@ -40,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateCounter(AppCompatTextView counter){
-        counter.setText(String.format("%d", this.viewModel.getCounter()));
+        //counter.setText(String.format("%d", this.viewModel.getCounter()));
     }
 }

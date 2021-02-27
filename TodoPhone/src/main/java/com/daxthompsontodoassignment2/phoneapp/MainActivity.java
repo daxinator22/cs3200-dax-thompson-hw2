@@ -2,12 +2,18 @@ package com.daxthompsontodoassignment2.phoneapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.daxthompsontodoassignment2.api.CountViewModel;
+import com.daxthompsontodoassignment2.api.TodoItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,27 +24,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.viewModel = new ViewModelProvider(this).get(CountViewModel.class);
-
-        AppCompatTextView counter = findViewById(R.id.counter);
-        updateCounter(counter);
-
-        viewModel.getData().observe(this, (count) -> {
-            updateCounter(counter);
+        viewModel.getData().observe(this, (todoItems) -> {
+            Log.d("PHONEAPP", "Data was changed");
+            LinearLayout todoList = findViewById(R.id.todosList);
+            todoList.removeAllViews();
+            for(TodoItem item : todoItems){
+                AppCompatCheckBox checkBox = new AppCompatCheckBox(this);
+                checkBox.setChecked(item.isCompleted);
+                checkBox.setOnClickListener((view) -> {
+                    item.isCompleted = !item.isCompleted;
+                    viewModel.updateTodo(item);
+                });
+                AppCompatTextView todoItem = new AppCompatTextView(this);
+                todoItem.setText(item.name);
+                todoList.addView(checkBox);
+                todoList.addView(todoItem);
+            }
         });
 
-        AppCompatButton plus = findViewById(R.id.plus);
-        plus.setOnClickListener((view -> {
-            viewModel.incrementCount();
-        }));
+        AppCompatEditText task = findViewById(R.id.task);
 
-        AppCompatButton minus = findViewById(R.id.minus);
-        minus.setOnClickListener((view -> {
-            viewModel.decrementCount();
-        }));
+        findViewById(R.id.save).setOnClickListener((view) -> {
+            Log.d("PHONEAPP", task.getText().toString());
+            viewModel.saveTodo(task.getText().toString(), false);
+            task.setText("");
+        });
 
-    }
 
-    private void updateCounter(AppCompatTextView counter){
-        counter.setText(String.format("%d", this.viewModel.getCounter()));
     }
 }

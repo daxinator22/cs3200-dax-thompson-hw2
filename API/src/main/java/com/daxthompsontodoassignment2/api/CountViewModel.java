@@ -12,20 +12,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class CountViewModel extends ViewModel {
 
-    private MutableLiveData<Long> counter;
+    private MutableLiveData<ArrayList<TodoItem>> todos;
     private DatabaseReference db;
 
     public CountViewModel(){
-        this.counter = new MutableLiveData<>();
-        this.counter.setValue((long)0);
+        todos = new MutableLiveData<>();
+        todos.setValue(new ArrayList<>());
         this.db = FirebaseDatabase.getInstance().getReference();
-        this.db.addValueEventListener(new ValueEventListener() {
+        this.db.child("/todos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                setCounter((long)snapshot.child("count").getValue());
-                Log.d("VIEWMODEL", snapshot.child("textTest").getValue().toString());
+
+                todos.getValue().clear();
+                for(DataSnapshot ss : snapshot.getChildren()){
+
+                    Log.d("VIEWMODEL", ss.getValue(TodoItem.class).toString());
+                    TodoItem item = ss.getValue(TodoItem.class);
+                    item.id = ss.getKey();
+                    getData().getValue().add(item);
+                }
+                todos.setValue(todos.getValue());
             }
 
             @Override
@@ -35,15 +46,16 @@ public class CountViewModel extends ViewModel {
         });
     }
 
-    public long getCounter(){return counter.getValue();}
-    public void setCounter(long counter){this.counter.setValue(counter);}
-    public MutableLiveData<Long> getData(){return this.counter;}
-
-    public void incrementCount(){
-        this.db.child("count").setValue(getCounter() + 1);
+    public MutableLiveData<ArrayList<TodoItem>> getData(){
+        return todos;
     }
 
-    public void decrementCount(){
-        this.db.child("count").setValue(getCounter() - 1);
+    public void saveTodo(String name, boolean isCompleted){
+        TodoItem item = new TodoItem(name, isCompleted);
+        db.child("/todos").push().setValue(item);
+    }
+
+    public void updateTodo(TodoItem item){
+        db.child("/todos").child(item.id).child("isCompleted").setValue(item.isCompleted);
     }
 }

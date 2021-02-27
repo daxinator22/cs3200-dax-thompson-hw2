@@ -7,8 +7,12 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,16 +33,7 @@ public class MainActivity extends AppCompatActivity {
             LinearLayout todoList = findViewById(R.id.todosList);
             todoList.removeAllViews();
             for(TodoItem item : todoItems){
-                AppCompatCheckBox checkBox = new AppCompatCheckBox(this);
-                checkBox.setChecked(item.isCompleted);
-                checkBox.setOnClickListener((view) -> {
-                    item.isCompleted = !item.isCompleted;
-                    viewModel.updateTodo(item);
-                });
-                AppCompatTextView todoItem = new AppCompatTextView(this);
-                todoItem.setText(item.name);
-                todoList.addView(checkBox);
-                todoList.addView(todoItem);
+                todoList.addView(viewModel.getContainerLayout(item, this));
             }
         });
 

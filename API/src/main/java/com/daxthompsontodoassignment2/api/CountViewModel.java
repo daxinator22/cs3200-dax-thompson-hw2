@@ -1,8 +1,16 @@
 package com.daxthompsontodoassignment2.api;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -44,6 +52,25 @@ public class CountViewModel extends ViewModel {
 
             }
         });
+    }
+
+    public LinearLayout getContainerLayout(TodoItem item, Activity activity){
+        LinearLayout container = new LinearLayout(activity);
+        AppCompatCheckBox checkBox = new AppCompatCheckBox(activity);
+        checkBox.setChecked(item.isCompleted);
+        checkBox.setOnClickListener((view) -> {
+            item.isCompleted = !item.isCompleted;
+            updateTodo(item);
+        });
+        AppCompatTextView todoItem = new AppCompatTextView(activity);
+        todoItem.setText(item.name);
+        todoItem.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+        todoItem.setTextColor(Color.parseColor("#db1a04"));
+        todoItem.setGravity(Gravity.CENTER);
+
+        container.addView(checkBox);
+        container.addView(todoItem);
+        return container;
     }
 
     public MutableLiveData<ArrayList<TodoItem>> getData(){

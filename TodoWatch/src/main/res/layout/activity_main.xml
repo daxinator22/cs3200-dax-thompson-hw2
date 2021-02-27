@@ -9,23 +9,23 @@
     tools:context=".MainActivity"
     tools:deviceIds="wear">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/inner_frame_layout_padding"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        app:layout_boxedEdges="all">
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/todosList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Task"/>
+            </LinearLayout>
+        </ScrollView>
 
-    </LinearLayout>
+    </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>

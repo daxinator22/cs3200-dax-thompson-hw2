@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -17,12 +17,16 @@
             android:id="@+id/task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task"/>
+            android:textColor="#db1a04"
+            android:textColorHint="#e85848"
+            android:hint="Task"
+            android:textColorHighlight="#db1a04"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#db1a04"
             android:gravity="center"
             android:text="Save Task"/>
 
